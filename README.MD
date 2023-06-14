@@ -38,8 +38,11 @@ process.cpp
 
 #### 编译本程序
 
-`g++ -Wall -std=c++17 -O3 -o log2duckdb /path/to/libduckdb.a main.cpp`
+`g++ -Wall -std=c++17 -O3 -o log2duckdb main.cpp /path/to/libduckdb.a`
 
+**静态编译**
+
+`g++ -Wall -std=c++17 -static-libstdc++ -static-libgcc --static -Wl,-Bstatic,--gc-sections -O3 -ffunction-sections -fdata-sections -o log2duckdb main.cpp /path/to/libduckdb.a`
 
 ## 测试
 
