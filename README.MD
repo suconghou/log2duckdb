@@ -48,6 +48,15 @@ process.cpp
 
 与c++版本log2sqlite相比，插入速度基本相同，每秒插入10W+
 
+
+测试数据700MB+, 约200万行
+
+| 版本  | 时间  |
+| ------ | ------    |
+| c++   | 18.176s    |
+
+sqlite版本见 https://github.com/suconghou/log2sqlite
+
 但是数据库文件相比sqlite小,是其五分之一大小
 
 查询速度比sqlite快很多
