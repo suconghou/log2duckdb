@@ -51,7 +51,7 @@ public:
 
 namespace duckdb
 {
-    enum class RenderMode
+    enum class RenderMode : uint8_t
     {
         ROWS,
         COLUMNS

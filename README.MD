@@ -42,7 +42,7 @@ process.cpp
 
 **静态编译**
 
-`g++ -Wall -std=c++17 -static-libstdc++ -static-libgcc --static -Wl,-Bstatic,--gc-sections -O3 -ffunction-sections -fdata-sections -o log2duckdb main.cpp /path/to/libduckdb.a`
+`g++ -Wall -std=c++17 -flto=auto -static-libstdc++ -static-libgcc --static -Wl,-Bstatic,--gc-sections -O3 -ffunction-sections -fdata-sections -o log2duckdb main.cpp /path/to/libduckdb.a`
 
 ## 测试
 
