@@ -52,8 +52,8 @@ process.cpp
 测试数据700MB+, 约200万行
 
 | 版本  | 时间  |
-| ------ | ------    |
-| c++   | 18.176s    |
+| ----- | -------    |
+| c++   | 10.581s    |
 
 sqlite版本见 https://github.com/suconghou/log2sqlite
 
