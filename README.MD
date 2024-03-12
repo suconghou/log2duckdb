@@ -53,7 +53,7 @@ process.cpp
 
 | 版本  | 时间  |
 | ----- | -------    |
-| c++   | 10.581s    |
+| c++   | 10.105s    |
 
 sqlite版本见 https://github.com/suconghou/log2sqlite
 

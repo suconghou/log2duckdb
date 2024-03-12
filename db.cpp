@@ -36,9 +36,9 @@ public:
     }
 
     // 如果出错将会抛出错误，否则必然返回0
-    int insert_log(unsigned int time, string &remote_addr, string &remote_user, string &request, unsigned int status, unsigned int body_bytes_sent, string &http_referer, string &http_user_agent, string &http_x_forwarded_for, string &host, unsigned int request_length, unsigned int bytes_sent, string &upstream_addr, unsigned int upstream_status, float request_time, float upstream_response_time, float upstream_connect_time, float upstream_header_time)
+    int insert_log(unsigned int time, const char *remote_addr, const char *remote_user, const char *request, unsigned int status, unsigned int body_bytes_sent, const char *http_referer, const char *http_user_agent, const char *http_x_forwarded_for, const char *host, unsigned int request_length, unsigned int bytes_sent, const char *upstream_addr, unsigned int upstream_status, float request_time, float upstream_response_time, float upstream_connect_time, float upstream_header_time)
     {
-        this->appender->AppendRow(time, remote_addr.c_str(), remote_user.c_str(), request.c_str(), status, body_bytes_sent, http_referer.c_str(), http_user_agent.c_str(), http_x_forwarded_for.c_str(), host.c_str(), request_length, bytes_sent, upstream_addr.c_str(), upstream_status, request_time, upstream_response_time, upstream_connect_time, upstream_header_time);
+        this->appender->AppendRow(time, remote_addr, remote_user, request, status, body_bytes_sent, http_referer, http_user_agent, http_x_forwarded_for, host, request_length, bytes_sent, upstream_addr, upstream_status, request_time, upstream_response_time, upstream_connect_time, upstream_header_time);
         return 0;
     }
 
