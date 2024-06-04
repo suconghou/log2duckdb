@@ -16,9 +16,9 @@ class dbutil
 {
 
 private:
-    DuckDB *db;
-    Connection *con;
-    Appender *appender;
+    DuckDB *db = nullptr;
+    Connection *con = nullptr;
+    Appender *appender = nullptr;
 
 public:
     dbutil()
@@ -27,6 +27,24 @@ public:
         this->con = new Connection(*this->db);
         this->con->Query("DROP TABLE IF EXISTS nginx_log");
         this->con->Query("CREATE TABLE nginx_log ( time UINTEGER NOT NULL, remote_addr VARCHAR NOT NULL, remote_user VARCHAR NOT NULL, request VARCHAR NOT NULL, status USMALLINT NOT NULL, body_bytes_sent UINTEGER NOT NULL, http_referer VARCHAR NOT NULL, http_user_agent VARCHAR NOT NULL, http_x_forwarded_for VARCHAR NOT NULL, host VARCHAR NOT NULL, request_length UINTEGER NOT NULL, bytes_sent UINTEGER NOT NULL, upstream_addr VARCHAR NOT NULL, upstream_status USMALLINT NOT NULL, request_time REAL NOT NULL, upstream_response_time REAL NOT NULL, upstream_connect_time REAL NOT NULL, upstream_header_time REAL NOT NULL )");
+    }
+    ~dbutil()
+    {
+        if (this->appender)
+        {
+            delete this->appender;
+            this->appender = nullptr;
+        }
+        if (this->con)
+        {
+            delete this->con;
+            this->con = nullptr;
+        }
+        if (this->db)
+        {
+            delete this->db;
+            this->db = nullptr;
+        }
     }
 
     int begin()
@@ -44,7 +62,12 @@ public:
 
     int end()
     {
-        this->appender->Close();
+        if (this->appender)
+        {
+            this->appender->Close();
+            delete this->appender;
+            this->appender = nullptr;
+        }
         return 0;
     }
 };
