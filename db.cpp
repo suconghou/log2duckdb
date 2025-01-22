@@ -5,9 +5,6 @@
 #include <sstream>
 #include <iostream>
 
-using namespace std;
-using namespace duckdb;
-
 #define CHECK(a) \
     if (a != 0)  \
     return a
@@ -16,15 +13,15 @@ class dbutil
 {
 
 private:
-    DuckDB *db = nullptr;
-    Connection *con = nullptr;
-    Appender *appender = nullptr;
+    duckdb::DuckDB *db = nullptr;
+    duckdb::Connection *con = nullptr;
+    duckdb::Appender *appender = nullptr;
 
 public:
     dbutil()
     {
-        this->db = new DuckDB("ngx_log.db");
-        this->con = new Connection(*this->db);
+        this->db = new duckdb::DuckDB("ngx_log.db");
+        this->con = new duckdb::Connection(*this->db);
         this->con->Query("DROP TABLE IF EXISTS nginx_log");
         this->con->Query("CREATE TABLE nginx_log ( time UINTEGER NOT NULL, remote_addr VARCHAR NOT NULL, remote_user VARCHAR NOT NULL, request VARCHAR NOT NULL, status USMALLINT NOT NULL, body_bytes_sent UINTEGER NOT NULL, http_referer VARCHAR NOT NULL, http_user_agent VARCHAR NOT NULL, http_x_forwarded_for VARCHAR NOT NULL, host VARCHAR NOT NULL, request_length UINTEGER NOT NULL, bytes_sent UINTEGER NOT NULL, upstream_addr VARCHAR NOT NULL, upstream_status USMALLINT NOT NULL, request_time REAL NOT NULL, upstream_response_time REAL NOT NULL, upstream_connect_time REAL NOT NULL, upstream_header_time REAL NOT NULL )");
     }
@@ -49,7 +46,7 @@ public:
 
     int begin()
     {
-        this->appender = new Appender(*this->con, "nginx_log");
+        this->appender = new duckdb::Appender(*this->con, "nginx_log");
         return 0;
     }
 
@@ -141,11 +138,11 @@ namespace duckdb
 
 int db_query(const char *file, const char *sql)
 {
-    DBConfig config;
-    config.options.access_mode = getenv("RW") ? AccessMode::READ_WRITE : AccessMode::READ_ONLY;
-    DuckDB db(file, &config);
-    Connection con(db);
+    duckdb::DBConfig config;
+    config.options.access_mode = getenv("RW") ? duckdb::AccessMode::READ_WRITE : duckdb::AccessMode::READ_ONLY;
+    duckdb::DuckDB db(file, &config);
+    duckdb::Connection con(db);
     auto result = con.Query(sql);
-    getenv("NO_LIMIT") ? result->Print() : Printer::Print(result->ToBox(*con.context.get(), BoxRendererConfig({.max_rows = 200, .limit = 100})));
+    getenv("NO_LIMIT") ? result->Print() : duckdb::Printer::Print(result->ToBox(*con.context.get(), duckdb::BoxRendererConfig({.max_rows = 200, .limit = 100})));
     return 0;
 }
