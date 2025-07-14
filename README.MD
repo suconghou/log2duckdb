@@ -26,23 +26,20 @@ process.cpp
 
 ### 编译
 
-#### 编译duckdb静态库
+使用ubuntu24编译
 
-下载duckdb官方`libduckdb-src.zip`源码，解压,有三个文件
+#### 提取duckdb静态库
 
-`g++ -c -Wall -std=c++17 -O3 duckdb.cpp && ar -crv libduckdb.a duckdb.o` 进行编译，编译可能需要2分钟时间,需要2G以上内存
+下载官方 libduckdb-linux-amd64.zip ， 解压提取`duckdb.hpp`文件到本项目
 
-编译出 `libduckdb.a`
-
-复制解压出的`duckdb.hpp`文件到本项目，编译本项目
+下载官方 static-libs-linux-amd64.zip 文件并解压到本项目
 
 #### 编译本程序
 
-`g++ -Wall -std=c++17 -O3 -o log2duckdb main.cpp /path/to/libduckdb.a`
 
 **静态编译**
 
-`g++ -Wall -std=c++17 -flto=auto -static-libstdc++ -static-libgcc --static -Wl,-Bstatic,--gc-sections -O3 -ffunction-sections -fdata-sections -o log2duckdb main.cpp /path/to/libduckdb.a`
+`g++ -Wall -std=c++20 -flto=auto -static-libstdc++ -static-libgcc --static -Wl,-Bstatic,--gc-sections -O3 -ffunction-sections -fdata-sections -o log2duckdb main.cpp lib*.a`
 
 ## 测试
 
