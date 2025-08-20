@@ -143,6 +143,6 @@ int db_query(const char *file, const char *sql)
     duckdb::DuckDB db(file, &config);
     duckdb::Connection con(db);
     auto result = con.Query(sql);
-    getenv("NO_LIMIT") ? result->Print() : duckdb::Printer::Print(result->ToBox(*con.context.get(), duckdb::BoxRendererConfig({.max_rows = 200, .limit = 100})));
+    getenv("NO_LIMIT") ? result->Print() : duckdb::Printer::Print(result->ToBox(*con.context.get(), duckdb::BoxRendererConfig({.max_rows = 1000, .limit = 500})));
     return 0;
 }
