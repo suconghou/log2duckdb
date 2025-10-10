@@ -75,4 +75,7 @@ sqlite版本见 https://github.com/suconghou/log2sqlite
 
 ```
 
-
+```
+log2duckdb nginx.log # 生成db文件
+log2duckdb ngx_log.db 'query sql' # 查询
+```
